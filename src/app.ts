@@ -11,8 +11,9 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server: server });
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
   console.log('A new client connected');
+  console.log(req.socket.remoteAddress);
   ws.send('conn successful');
 });
 
@@ -20,6 +21,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello express');
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
