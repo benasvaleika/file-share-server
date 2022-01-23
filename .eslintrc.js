@@ -12,5 +12,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'object-shorthand': 'off',
+    'lines-between-class-members': 'off',
+    'import/extensions': 'off',
   },
 };
