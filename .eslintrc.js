@@ -14,5 +14,8 @@ module.exports = {
     'object-shorthand': 'off',
     'lines-between-class-members': 'off',
     'import/extensions': 'off',
+    'no-shadow': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
   },
 };
