@@ -1,15 +1,17 @@
+import { IncomingMessage } from 'http';
 import { v4 } from 'uuid';
+import { WebSocket } from 'ws';
 import { UserType } from './types/userTypes';
 
 class User implements UserType {
   private ws: WebSocket;
   readonly id = v4();
   userLetter = 'Y';
-  readonly remoteAddress: string;
-  roomId: string;
+  readonly remoteAddress;
+  roomId: string | undefined;
 
-  constructor(ws: WebSocket, remoteAddres: string) {
-    this.remoteAddress = remoteAddres;
+  constructor(ws: WebSocket, req: IncomingMessage) {
+    this.remoteAddress = req.socket.remoteAddress;
     this.ws = ws;
   }
 

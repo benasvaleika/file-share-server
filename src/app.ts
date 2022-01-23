@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import http from 'http';
 import WebSocket from 'ws';
 import dotenv from 'dotenv';
+import UserManager from './UserManager';
+import User from './User';
 
 dotenv.config();
 
@@ -11,14 +13,20 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server: server });
 
+const userManager = new UserManager();
+
 wss.on('connection', (ws, req) => {
-  console.log('A new client connected');
-  console.log(req.socket.remoteAddress);
-  ws.send('conn successful');
+  const user = new User(ws, req);
+
+  userManager.addUser(user);
+
+  ws.on('close', () => {
+    userManager.removeUser(user);
+  });
 });
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello express');
+  res.send('srvr');
 });
 
 server.listen(PORT, () => {
