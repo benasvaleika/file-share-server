@@ -25,7 +25,9 @@ class UserManager {
   }
 
   getLocalUsers(user: UserType) {
-    return this.users.filter((u) => u.remoteAddress === user.remoteAddress);
+    return this.users
+      .filter((u) => u.remoteAddress === user.remoteAddress)
+      .sort((a, b) => b.joinDate - a.joinDate);
   }
 
   removeUser(user: UserType) {

@@ -3,6 +3,7 @@ export interface UserType {
   userLetter: string;
   remoteAddress: string | undefined;
   roomId: string | undefined;
+  joinDate: number;
 
   sendData(data: string): void;
   setRoomId(roomId: string): void;

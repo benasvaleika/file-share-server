@@ -9,6 +9,7 @@ class User implements UserType {
   userLetter = 'Y';
   readonly remoteAddress;
   roomId: string | undefined;
+  joinDate = new Date().getTime();
 
   constructor(ws: WebSocket, req: IncomingMessage) {
     this.remoteAddress = req.socket.remoteAddress;
