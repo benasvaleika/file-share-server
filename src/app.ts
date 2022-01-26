@@ -20,13 +20,18 @@ wss.on('connection', (ws, req) => {
 
   userManager.addUser(user);
 
+  ws.on('message', (message: string) => {
+    const parsedMessage = JSON.parse(message);
+    console.log(parsedMessage);
+  });
+
   ws.on('close', () => {
     userManager.removeUser(user);
   });
 });
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('srvr');
+  res.send(res.send(userManager.getAllUsers()));
 });
 
 server.listen(PORT, () => {
