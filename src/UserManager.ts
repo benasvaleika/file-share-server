@@ -30,6 +30,11 @@ class UserManager {
       .sort((a, b) => b.joinDate - a.joinDate);
   }
 
+  // FOR DEV PURPOSES
+  getAllUsers() {
+    return this.users;
+  }
+
   removeUser(user: UserType) {
     this.users = this.users.filter((u) => u !== user);
   }
