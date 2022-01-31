@@ -5,6 +5,17 @@ import { UserType } from './types/userTypes';
 class UserManager {
   private users: UserType[] = [];
 
+  getLocalUsers(user: UserType) {
+    return this.users
+      .filter((u) => u.remoteAddress === user.remoteAddress)
+      .sort((a, b) => a.joinDate - b.joinDate);
+  }
+
+  // FOR DEV PURPOSES
+  getAllUsers() {
+    return this.users;
+  }
+
   addUser(user: UserType) {
     this.users.push(user);
 
@@ -22,17 +33,6 @@ class UserManager {
         roomIdSuggested: roomIdSuggested,
       } as InitialMessageType)
     );
-  }
-
-  getLocalUsers(user: UserType) {
-    return this.users
-      .filter((u) => u.remoteAddress === user.remoteAddress)
-      .sort((a, b) => b.joinDate - a.joinDate);
-  }
-
-  // FOR DEV PURPOSES
-  getAllUsers() {
-    return this.users;
   }
 
   removeUser(user: UserType) {
