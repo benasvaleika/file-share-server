@@ -5,15 +5,18 @@ import { UserType } from './types/userTypes';
 
 class User implements UserType {
   private ws: WebSocket;
-  readonly id = v4();
-  userLetter = 'Y';
+  readonly id;
+  userLetter;
   readonly remoteAddress;
   roomId: string | undefined;
-  joinDate = new Date().getTime();
+  joinDate;
 
   constructor(ws: WebSocket, req: IncomingMessage) {
     this.remoteAddress = req.socket.remoteAddress;
     this.ws = ws;
+    this.id = v4();
+    this.userLetter = 'Y';
+    this.joinDate = new Date().getTime();
   }
 
   sendData(data: string) {
