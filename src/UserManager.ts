@@ -1,5 +1,5 @@
 import { MessageEnum } from './types/MessageEnum';
-import { InitialMessageType } from './types/MessageTypes';
+import { ChatMessageType, InitialMessageType } from './types/MessageTypes';
 import { UserType } from './types/userTypes';
 
 class UserManager {
@@ -9,6 +9,10 @@ class UserManager {
     return this.users
       .filter((u) => u.remoteAddress === user.remoteAddress)
       .sort((a, b) => a.joinDate - b.joinDate);
+  }
+
+  getRoomUsers(user: UserType) {
+    return this.users.filter((u) => u.roomId === user.roomId);
   }
 
   // FOR DEV PURPOSES
@@ -37,6 +41,13 @@ class UserManager {
 
   removeUser(user: UserType) {
     this.users = this.users.filter((u) => u !== user);
+  }
+
+  sendChatMessage(message: ChatMessageType, user: UserType) {
+    const roomUsers = this.getRoomUsers(user);
+    roomUsers.forEach((u) => {
+      if (u.id !== user.id) u.sendData(JSON.stringify(message));
+    });
   }
 }
 
