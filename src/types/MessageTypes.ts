@@ -6,3 +6,14 @@ export interface InitialMessageType {
   userLetter: string;
   roomIdSuggested: string;
 }
+
+export interface ChatMessageType {
+  type: MessageEnum.CHAT_MESSAGE;
+  date: string;
+  msgContent: string;
+}
+
+export interface RoomIdMessageType {
+  type: MessageEnum.ROOMID;
+  roomId: string;
+}

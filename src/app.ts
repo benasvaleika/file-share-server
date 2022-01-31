@@ -4,6 +4,7 @@ import WebSocket from 'ws';
 import dotenv from 'dotenv';
 import UserManager from './UserManager';
 import User from './User';
+import wsMessageManager from './wsMessageManager';
 
 dotenv.config();
 
@@ -21,8 +22,7 @@ wss.on('connection', (ws, req) => {
   userManager.addUser(user);
 
   ws.on('message', (message: string) => {
-    const parsedMessage = JSON.parse(message);
-    console.log(parsedMessage);
+    wsMessageManager(user, message, userManager);
   });
 
   ws.on('close', () => {
