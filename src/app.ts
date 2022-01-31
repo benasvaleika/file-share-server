@@ -16,6 +16,7 @@ const wss = new WebSocket.Server({ server: server });
 
 const userManager = new UserManager();
 
+// TODO Ws DoS attack prevention (Rate Limiting)
 wss.on('connection', (ws, req) => {
   const user = new User(ws, req);
 
