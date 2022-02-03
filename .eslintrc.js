@@ -17,5 +17,7 @@ module.exports = {
     'no-shadow': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
+    'arrow-body-style': 'off',
+    'comma-dangle': 'off',
   },
 };
