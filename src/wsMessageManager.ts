@@ -9,7 +9,7 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
 
   switch (parsedMsg.type) {
     case MessageEnum.ROOMID:
-      roomIdMessageHandler(parsedMsg as RoomIdMessageType, user);
+      roomIdMessageHandler(parsedMsg as RoomIdMessageType, user, userManager);
       break;
     case MessageEnum.CHAT_MESSAGE:
       chatMessageHandler(parsedMsg as ChatMessageType, userManager, user);

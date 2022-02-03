@@ -2,6 +2,7 @@ import { IncomingMessage } from 'http';
 import { v4 } from 'uuid';
 import { WebSocket } from 'ws';
 import { UserType } from './types/userTypes';
+import { generateUserLetter } from './utils';
 
 class User implements UserType {
   private ws: WebSocket;
@@ -15,7 +16,7 @@ class User implements UserType {
     this.remoteAddress = req.socket.remoteAddress;
     this.ws = ws;
     this.id = v4();
-    this.userLetter = 'Y';
+    this.userLetter = generateUserLetter();
     this.joinDate = new Date().getTime();
   }
 

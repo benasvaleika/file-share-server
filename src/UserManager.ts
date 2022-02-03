@@ -1,5 +1,10 @@
 import { MessageEnum } from './types/MessageEnum';
-import { ChatMessageType, InitialMessageType } from './types/MessageTypes';
+import {
+  ChatMessageType,
+  CurrRoomUsersType,
+  InitialMessageType,
+  RoomUserType,
+} from './types/MessageTypes';
 import { UserType } from './types/userTypes';
 
 class UserManager {
@@ -41,6 +46,17 @@ class UserManager {
 
   removeUser(user: UserType) {
     this.users = this.users.filter((u) => u !== user);
+  }
+
+  sendCurrRoomUsers(user: UserType) {
+    const roomUsers = this.getRoomUsers(user);
+    const roomUsersJSON = JSON.stringify({
+      type: MessageEnum.CURR_ROOM_USERS,
+      roomUsers: roomUsers.map((u) => {
+        return { id: u.id, userLetter: u.userLetter } as RoomUserType;
+      }),
+    } as CurrRoomUsersType);
+    roomUsers.forEach((u) => u.sendData(roomUsersJSON));
   }
 
   sendChatMessage(message: ChatMessageType, user: UserType) {
