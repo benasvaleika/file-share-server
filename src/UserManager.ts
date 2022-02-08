@@ -7,6 +7,7 @@ import {
 } from './types/MessageTypes';
 import { UserType } from './types/userTypes';
 
+// TODO refractor message related methods to mesage handler
 class UserManager {
   private users: UserType[] = [];
 
