@@ -3,10 +3,18 @@ import { UserType } from './types/userTypes';
 import { MessageEnum } from './types/MessageEnum';
 import {
   chatMessageHandler,
+  fileTransferCancelMessageHandler,
+  fileTransferRejectMessageHandler,
   fileTransMessageHandler,
   roomIdMessageHandler,
 } from './wsMessageHandlers';
-import { ChatMessageType, FileTransMessageType, RoomIdMessageType } from './types/MessageTypes';
+import {
+  ChatMessageType,
+  FileTransCancelMessageType,
+  FileTransMessageType,
+  FileTransRejectMessageType,
+  RoomIdMessageType,
+} from './types/MessageTypes';
 
 const wsMessageManager = (user: UserType, message: string, userManager: UserManager) => {
   const parsedMsg = JSON.parse(message);
@@ -20,6 +28,12 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
       break;
     case MessageEnum.FILE_TRANS:
       fileTransMessageHandler(parsedMsg as FileTransMessageType, userManager, user);
+      break;
+    case MessageEnum.FILE_TRANS_CANCEL:
+      fileTransferCancelMessageHandler(parsedMsg as FileTransCancelMessageType, userManager, user);
+      break;
+    case MessageEnum.FILE_TRANS_REJECT:
+      fileTransferRejectMessageHandler(parsedMsg as FileTransRejectMessageType, userManager, user);
       break;
     default:
       // handle deff

@@ -41,3 +41,15 @@ export interface FileTransMessageType {
   type: MessageEnum.FILE_TRANS;
   files: FileType[];
 }
+
+export interface FileTransCancelMessageType {
+  type: MessageEnum.FILE_TRANS_CANCEL;
+  fileId: string;
+  fileDestinationId: string;
+}
+
+export interface FileTransRejectMessageType {
+  type: MessageEnum.FILE_TRANS_CANCEL;
+  fileId: string;
+  fileSourceId: string;
+}

@@ -1,5 +1,11 @@
 import { MessageEnum } from './types/MessageEnum';
-import { ChatMessageType, FileTransMessageType, RoomIdMessageType } from './types/MessageTypes';
+import {
+  ChatMessageType,
+  FileTransCancelMessageType,
+  FileTransMessageType,
+  FileTransRejectMessageType,
+  RoomIdMessageType,
+} from './types/MessageTypes';
 import { UserType } from './types/userTypes';
 import UserManager from './UserManager';
 
@@ -26,14 +32,36 @@ export const fileTransMessageHandler = (
   user: UserType
 ) => {
   message.files.forEach((f) => {
-    const fileDestinationUser = userManager
+    const messageDestinationUser = userManager
       .getRoomUsers(user)
       .filter((u) => u.id === f.destinationId);
-    fileDestinationUser[0].sendData(
+    messageDestinationUser[0].sendData(
       JSON.stringify({
         type: MessageEnum.FILE_TRANS,
         files: [f],
       } as FileTransMessageType)
     );
   });
+};
+
+export const fileTransferCancelMessageHandler = (
+  message: FileTransCancelMessageType,
+  userManager: UserManager,
+  user: UserType
+) => {
+  const messageDestinationUser = userManager
+    .getRoomUsers(user)
+    .filter((u) => u.id === message.fileDestinationId);
+  messageDestinationUser[0].sendData(JSON.stringify(message));
+};
+
+export const fileTransferRejectMessageHandler = (
+  message: FileTransRejectMessageType,
+  userManager: UserManager,
+  user: UserType
+) => {
+  const messageDestinationUser = userManager
+    .getRoomUsers(user)
+    .filter((u) => u.id === message.fileSourceId);
+  messageDestinationUser[0].sendData(JSON.stringify(message));
 };
