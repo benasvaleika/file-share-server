@@ -28,6 +28,7 @@ wss.on('connection', (ws, req) => {
 
   ws.on('close', () => {
     userManager.removeUser(user);
+    userManager.dropClosedClientFiles(user);
     userManager.sendCurrRoomUsers(user);
   });
 });

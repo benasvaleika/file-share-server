@@ -2,6 +2,7 @@ import { MessageEnum } from './types/MessageEnum';
 import {
   ChatMessageType,
   CurrRoomUsersType,
+  FileTransDropMessageType,
   InitialMessageType,
   RoomUserType,
 } from './types/MessageTypes';
@@ -64,6 +65,18 @@ class UserManager {
     const roomUsers = this.getRoomUsers(user);
     roomUsers.forEach((u) => {
       if (u.id !== user.id) u.sendData(JSON.stringify(message));
+    });
+  }
+
+  dropClosedClientFiles(user: UserType) {
+    const roomUsers = this.getRoomUsers(user);
+    roomUsers.forEach((u) => {
+      u.sendData(
+        JSON.stringify({
+          type: MessageEnum.FILE_TRANS_DROP,
+          fileSourceId: user.id,
+        } as FileTransDropMessageType)
+      );
     });
   }
 }
