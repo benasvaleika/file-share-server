@@ -27,6 +27,7 @@ wss.on('connection', (ws, req) => {
   });
 
   ws.on('close', () => {
+    // TODO drop incoming files on client close
     userManager.removeUser(user);
     userManager.dropClosedClientFiles(user);
     userManager.sendCurrRoomUsers(user);

@@ -5,6 +5,7 @@ import {
   FileTransMessageType,
   FileTransRejectMessageType,
   RoomIdMessageType,
+  RtcSdpOfferMessageType,
 } from './types/MessageTypes';
 import { UserType } from './types/userTypes';
 import UserManager from './UserManager';
@@ -63,5 +64,16 @@ export const fileTransferRejectMessageHandler = (
   const messageDestinationUser = userManager
     .getRoomUsers(user)
     .filter((u) => u.id === message.fileSourceId);
+  messageDestinationUser[0].sendData(JSON.stringify(message));
+};
+
+export const rtcSdpOfferMessageHandler = (
+  message: RtcSdpOfferMessageType,
+  userManager: UserManager,
+  user: UserType
+) => {
+  const messageDestinationUser = userManager
+    .getRoomUsers(user)
+    .filter((u) => u.id === message.destinationId);
   messageDestinationUser[0].sendData(JSON.stringify(message));
 };

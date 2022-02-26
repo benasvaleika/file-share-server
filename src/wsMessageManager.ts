@@ -7,6 +7,7 @@ import {
   fileTransferRejectMessageHandler,
   fileTransMessageHandler,
   roomIdMessageHandler,
+  rtcSdpOfferMessageHandler,
 } from './wsMessageHandlers';
 import {
   ChatMessageType,
@@ -14,6 +15,7 @@ import {
   FileTransMessageType,
   FileTransRejectMessageType,
   RoomIdMessageType,
+  RtcSdpOfferMessageType,
 } from './types/MessageTypes';
 
 const wsMessageManager = (user: UserType, message: string, userManager: UserManager) => {
@@ -34,6 +36,9 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
       break;
     case MessageEnum.FILE_TRANS_REJECT:
       fileTransferRejectMessageHandler(parsedMsg as FileTransRejectMessageType, userManager, user);
+      break;
+    case MessageEnum.RTC_SDP_OFFER:
+      rtcSdpOfferMessageHandler(parsedMsg as RtcSdpOfferMessageType, userManager, user);
       break;
     default:
       // handle deff
