@@ -7,6 +7,8 @@ import {
   fileTransferRejectMessageHandler,
   fileTransMessageHandler,
   roomIdMessageHandler,
+  rtcIceCandidateMessageHandler,
+  rtcSdpAnswerMessageHandler,
   rtcSdpOfferMessageHandler,
 } from './wsMessageHandlers';
 import {
@@ -15,6 +17,7 @@ import {
   FileTransMessageType,
   FileTransRejectMessageType,
   RoomIdMessageType,
+  RtcSdpAnswerMessageType,
   RtcSdpOfferMessageType,
 } from './types/MessageTypes';
 
@@ -39,6 +42,12 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
       break;
     case MessageEnum.RTC_SDP_OFFER:
       rtcSdpOfferMessageHandler(parsedMsg as RtcSdpOfferMessageType, userManager, user);
+      break;
+    case MessageEnum.RTC_SDP_ANSWER:
+      rtcSdpAnswerMessageHandler(parsedMsg as RtcSdpAnswerMessageType, userManager, user);
+      break;
+    case MessageEnum.RTC_ICE_CANDIDATE:
+      rtcIceCandidateMessageHandler(parsedMsg as RtcSdpAnswerMessageType, userManager, user);
       break;
     default:
       // handle deff
