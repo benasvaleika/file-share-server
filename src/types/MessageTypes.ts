@@ -59,6 +59,13 @@ export interface FileTransDropMessageType {
   fileSourceId: string;
 }
 
+export interface FileTransAcceptMessageType {
+  type: MessageEnum.FILE_TRANS_ACCEPT;
+  transferId: 'string';
+  sourceId: 'string';
+  destinationId: 'string';
+}
+
 export interface RtcSdpOfferMessageType {
   type: MessageEnum.RTC_SDP_OFFER;
   transferId: 'string';

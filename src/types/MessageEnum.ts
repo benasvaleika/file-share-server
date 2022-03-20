@@ -7,6 +7,7 @@ export enum MessageEnum {
   FILE_TRANS_CANCEL = 'filetranscancel',
   FILE_TRANS_REJECT = 'filetransreject',
   FILE_TRANS_DROP = 'filetransdrop',
+  FILE_TRANS_ACCEPT = 'filetransaccept',
   RTC_SDP_OFFER = 'rtcsdpoffer',
   RTC_SDP_ANSWER = 'rtcsdpanswer',
   RTC_ICE_CANDIDATE = 'rtcicecandidate',

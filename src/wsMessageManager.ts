@@ -3,6 +3,7 @@ import { UserType } from './types/userTypes';
 import { MessageEnum } from './types/MessageEnum';
 import {
   chatMessageHandler,
+  fileTransferAcceptMessageHandler,
   fileTransferCancelMessageHandler,
   fileTransferRejectMessageHandler,
   fileTransMessageHandler,
@@ -14,6 +15,7 @@ import {
 import {
   ChatMessageType,
   FileTransCancelMessageType,
+  FileTransAcceptMessageType,
   FileTransMessageType,
   FileTransRejectMessageType,
   RoomIdMessageType,
@@ -40,6 +42,9 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
     case MessageEnum.FILE_TRANS_REJECT:
       fileTransferRejectMessageHandler(parsedMsg as FileTransRejectMessageType, userManager, user);
       break;
+    case MessageEnum.FILE_TRANS_ACCEPT:
+      fileTransferAcceptMessageHandler(parsedMsg as FileTransAcceptMessageType, userManager, user);
+      break;
     case MessageEnum.RTC_SDP_OFFER:
       rtcSdpOfferMessageHandler(parsedMsg as RtcSdpOfferMessageType, userManager, user);
       break;
@@ -49,6 +54,7 @@ const wsMessageManager = (user: UserType, message: string, userManager: UserMana
     case MessageEnum.RTC_ICE_CANDIDATE:
       rtcIceCandidateMessageHandler(parsedMsg as RtcSdpAnswerMessageType, userManager, user);
       break;
+
     default:
       // handle deff
       console.log('default reached');

@@ -2,6 +2,7 @@ import { MessageEnum } from './types/MessageEnum';
 import {
   ChatMessageType,
   FileTransCancelMessageType,
+  FileTransAcceptMessageType,
   FileTransMessageType,
   FileTransRejectMessageType,
   RoomIdMessageType,
@@ -66,6 +67,17 @@ export const fileTransferRejectMessageHandler = (
   const messageDestinationUser = userManager
     .getRoomUsers(user)
     .filter((u) => u.id === message.fileSourceId);
+  messageDestinationUser[0].sendData(JSON.stringify(message));
+};
+
+export const fileTransferAcceptMessageHandler = (
+  message: FileTransAcceptMessageType,
+  userManager: UserManager,
+  user: UserType
+) => {
+  const messageDestinationUser = userManager
+    .getRoomUsers(user)
+    .filter((u) => u.id === message.destinationId);
   messageDestinationUser[0].sendData(JSON.stringify(message));
 };
 
